@@ -1,6 +1,10 @@
 Ext.define('Stadtra.view.homepage.HomePage', {
     extend: 'Ext.tab.Panel',
-
+	
+	requires: [
+		'Stadtra.view.homepage.Advisers',
+		'Stadtra.view.homepage.Students'
+	],
     
     xtype: 'home-page',
     
@@ -25,11 +29,11 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 	
     items: [
     	{
-    		title: 'Teachers'
+    		xtype: 'teacher-panel'
     		
     	},
     	{
-    		title: 'Students'
+    		xtype: 'student-panel'
     	}
     ]
 });

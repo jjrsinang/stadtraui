@@ -13,7 +13,8 @@ Ext.define('Stadtra.Application', {
     ],
     
     controllers: [
-        'Stadtra.controllers.LoginController'
+        'Stadtra.controllers.LoginController',
+		'Stadtra.controllers.StudentTableController'
     ],
     
     launch: function () {
