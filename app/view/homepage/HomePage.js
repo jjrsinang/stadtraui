@@ -1,22 +1,27 @@
 Ext.define('Stadtra.view.homepage.HomePage', {
     extend: 'Ext.tab.Panel',
-	
-	requires: [
-		'Stadtra.view.homepage.Advisers',
+	requires:[
+		'Stadtra.view.homepage.homeTab',
+		'Stadtra.view.homepage.Adviser',
+		'Stadtra.view.homepage.Profile',
 		'Stadtra.view.homepage.Students'
 	],
+
     
     xtype: 'home-page',
     
-    layout: {
-        type: 'auto'
-    },
+	layout:{
+		type: 'absolute'
+	},
     
     title: 'STADTRA',
+	//ui: 'navigation',
 	tabPosition: 'left',
 	width: 400,
     height: 400,
 	
+	tabRotation: 0,
+
 	tools: [
 		{ 
 			type: 'gear',
@@ -26,14 +31,19 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 			}
 		}
 	],
+	items: [{
+		xtype: 'home-tab'
+		
+    }, {
+		xtype: 'profile'
+    }, {
+		xtype: 'adviser-list'
+    }, {
+    	xtype: 'student-panel'
+    }, {
+        title: 'Logout',
+        glyph: 42
+    }]
 	
-    items: [
-    	{
-    		xtype: 'teacher-panel'
-    		
-    	},
-    	{
-    		xtype: 'student-panel'
-    	}
-    ]
+    
 });

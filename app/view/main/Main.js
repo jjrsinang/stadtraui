@@ -8,8 +8,9 @@
 Ext.define('Stadtra.view.main.Main', {
     extend: 'Ext.container.Container',
     requires: [
-        'Stadtra.view.login.MainContainer',
-        'Stadtra.view.homepage.HomePage'
+        'Stadtra.view.login.LogIn',
+        'Stadtra.view.homepage.HomePage',
+		 'Stadtra.view.login.MainContainer'
     ],
 
     xtype: 'app-main',
@@ -22,7 +23,7 @@ Ext.define('Stadtra.view.main.Main', {
     items: [
         {
             xtype: 'main-container'
-        },    
+        }, 
         {
             xtype: 'home-page'
         }
