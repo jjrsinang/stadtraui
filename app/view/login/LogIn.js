@@ -2,7 +2,7 @@ Ext.define('Stadtra.view.login.LogIn', {
     extend: 'Ext.container.Container',
 
     
-    xtype: 'login-container',
+    xtype: 'login-form-container',
     
     layout: {
         type: 'hbox',
