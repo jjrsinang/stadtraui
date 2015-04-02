@@ -8,7 +8,7 @@ Ext.application({
 
     extend: 'Stadtra.Application',
     
-    autoCreateViewport: 'Stadtra.view.main.Main'
+    autoCreateViewport: false
 	
     //-------------------------------------------------------------------------
     // Most customizations should be made to Stadtra.Application. If you need to

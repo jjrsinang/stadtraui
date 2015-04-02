@@ -19,27 +19,112 @@ Ext.define('Stadtra.controllers.LoginController', {
              },
              'login-container form #passwordField': {
                     specialkey: this.onPressEnter
+             },
+             'home-page #logoutTab': {
+                    activate: this.onClickLogout
              }
          });
      },
+     
+     test: function() {
+          console.log('test');
+     },
 
      onClickButton: function() {
-          // get reference to login view
-          var loginView = Ext.ComponentQuery.query('login-container')[0];
-          
-          // perform action if valid
-          if (loginView.down('form').isValid()) {
-               var mainView = Ext.ComponentQuery.query('#viewport')[0];
-               mainView.getLayout().setActiveItem(1);
-          } else {
-               loginView.down('#errorText').setHidden(false);
-               loginView.down('#errorText').setValue('Login error');
-          }
+          this.login();
      },
      
      onPressEnter: function(field, e) {
           if (e.getKey() == e.ENTER) {
-               this.onClickButton();
+               this.login();
           }
+     },
+     
+     onClickLogout: function() {
+          this.logout();
+     },
+     
+     login: function() {console.log('called login');
+          var url = window.location.href + 'ws/security/login';
+          var form = Ext.ComponentQuery.query('login-container')[0].down('form');
+          
+          // if already logged in, reload browser tab to redirect to homepage
+          if (Ext.util.Cookies.get('stadtraLoggedIn')) {
+               window.alert('about to refresh');
+               window.location.reload();
+          }
+          
+          // submit form to backend for login
+          if (form.isValid()) {
+               form.submit({
+                    url: url,
+                    method: 'POST',
+                    waitMsg: 'Logging in...',
+                    success: function(fp, o) {
+                         form.down('#errorText').hide();
+                         // create a session
+                         var session = Ext.create('Stadtra.model.UserSessionModel',{
+                              user      : o.result.data.user,
+                              loginDate : o.result.data.loginDate,
+                              userSessionId : o.result.data.userSessionId
+                         });
+                         
+                         session.save();
+                         Ext.util.Cookies.set('stadtraLoggedIn',o.result.data.userSessionId);
+                         window.location.reload();
+                    },
+                    failure: function(fp, o) {
+                         var msg = o.result.data.errorMessage;
+                         form.down('#errorText').show();
+                         form.down('#errorText').setValue(msg);
+                    }
+               });
+          }
+     },
+     
+     logout: function() {console.log('called logout');
+          // this form is not appended as child to any container so it is not rendered
+          var logoutForm = Ext.create('Ext.form.Panel',{
+               jsonSubmit  : true
+          });
+          
+          logoutForm.submit({
+               url: window.location.href + 'ws/security/logout',
+               method: 'POST',
+               waitMsg: 'Loggin out...',
+               success: function(fp, o) {
+                   Stadtra.app.userSession.proxy.clear();
+                   Stadtra.app.userSession = null;
+                   Ext.util.Cookies.clear('stadtraLoggedIn');
+                   window.location.reload();
+               },
+               failure: function(fp, o) {
+                   Ext.Msg.alert('STADTRA', 'Logout failed');
+               }
+          });
+     },
+     
+     checkSession: function(onSuccess) {console.log('called checkSession');
+          // this form is not appended as child to any container so it is not rendered
+          var loginForm = Ext.create('Ext.form.Panel',{
+               jsonSubmit  : true
+          });
+          
+          loginForm.submit({
+               url: window.location.href + 'ws/security/session/authenticate?sessionId='+Ext.util.Cookies.get('stadtraLoggedIn'),
+               method: 'GET',
+               headers: {
+                    'Accept'	: 'application/json',
+                    'Content-Type': 'application/json'
+               },
+               success: function(fp, o) {
+                    onSuccess(fp, o); // call the passed function on success
+               },
+               failure: function () {
+                    Ext.util.Cookies.clear('stadtraLoggedIn');
+                    window.location.reload();
+               }
+          });
      }
+     
  });

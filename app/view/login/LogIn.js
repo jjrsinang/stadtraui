@@ -14,6 +14,7 @@ Ext.define('Stadtra.view.login.LogIn', {
     	{
     		xtype: 'form',
     		title: 'Log in to STADTRA',
+			jsonSubmit: true,
 			bodyPadding: 10,
 			height: 170,
 			width: 300,
@@ -21,14 +22,17 @@ Ext.define('Stadtra.view.login.LogIn', {
 					xtype: 'textfield',
 					itemId: 'userField',
 					fieldLabel: 'Username',
-					allowBlank:false
+					name: 'loginId',
+					emptyText: 'employee/student no',
+					allowBlank: false
 				},
 				{
 					xtype: 'textfield',
 					itemId: 'passwordField',
 					fieldLabel: 'Password',
 					inputType: 'password',
-					allowBlank:false
+					name: 'password',
+					allowBlank: false
 				},
 				{
 					xtype: 'displayfield',

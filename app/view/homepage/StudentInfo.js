@@ -14,13 +14,33 @@ Ext.define('Stadtra.view.homepage.StudentInfo', {
 			items: [
 				{
 					xtype: 'displayfield',
-					fieldLabel: 'Name',
-					name: 'name'
+					fieldLabel: 'First Name',
+					name: 'fName'
+				},
+				{
+					xtype: 'displayfield',
+					fieldLabel: 'Middle Name',
+					name: 'mName'
+				},
+				{
+					xtype: 'displayfield',
+					fieldLabel: 'Last Name',
+					name: 'lName'
 				},
 				{
 					xtype: 'displayfield',
 					fieldLabel: 'Student Number',
-					name: 'studentNumber'
+					name: 'studentNo'
+				},
+				{
+					xtype: 'displayfield',
+					fieldLabel: 'Classification',
+					name: 'classification'
+				},
+				{
+					xtype: 'displayfield',
+					fieldLabel: 'Email',
+					name: 'email'
 				}
 			]
 		}

@@ -1,0 +1,108 @@
+<!-- 
+###############################################################
+## build.xml                                                 ##
+##   - build file for Spring-based apps                      ## 
+## Referenced files:                                         ## 
+## 1. build.properties - contains developer's settings       ##
+## 2. default.properties - contains application defaults     ##
+##    by the application.                                    ##
+##                                                           ##
+## This build file can be ran within Eclipse or from the     ##
+## command line.                                             ##
+##                                                           ##
+## To run from the command line, open a prompt and type:     ##
+##    ant -buildfile build-ui.xml 200-deploy-ui				   ##
+##                                                           ##
+## INTELLEXiON TECHNOLOGY INC. (2007)                        ##
+###############################################################
+                                                            -->
+<!-- ====================================================== -->
+<!--               TARGET NAME PREFIXES                     -->
+<!--            000-                                        -->
+<!--            100-Initialization tasks                    -->
+<!--            200-                                        -->
+<!--            300-Compilation taks                        -->
+<!--            400-                                        -->
+<!--		    500-Deployment tasks                          -->
+<!--            600-           					            -->
+<!--		    700-Testing tasks (JUnit, Cactus, etc.)       -->
+<!--            800-           					            -->
+<!--            900-Packaging & Distribution tasks          -->
+<!--            999-Tomcat tasks                            -->
+<!-- ====================================================== -->
+
+<project default="100-init" basedir="." name="cms ui">
+	
+	<!-- Retrieve TOMCAT_HOME to make it available to build-ui.properties -->
+	<property environment="env"/>
+	<property name="tomcat.home" value="${env.TOMCAT_HOME}"/> 
+
+	<!-- Override default values below -->
+	<property file="build-ui.properties"/>
+	<!-- set default values -->
+	<property file="default.properties"/>
+
+	<target name="100-init">
+		<tstamp/>
+		<echo message="Application Name    : ${app.name}"    />
+		<echo message="Application Version : ${app.version}" />
+		<echo message="Distribution Home   : ${dist.home}"   />
+		<echo message="Deploy Home         : ${deploy.home}" />
+		<echo message="Tomcat Home         : ${tomcat.home}" />
+	</target>
+	
+	<!-- Delete build directories before rebuilding -->
+	<target name="110-clean" depends="100-init">
+		<echo message="Deleting old ${build.home} directories." />	
+		
+		<delete dir="${build.home}" includeemptydirs="true"/>
+	</target>
+	
+	<!-- Create required directories -->
+	<target name="120-prepare" depends="110-clean">
+		<echo message="Creating build, test, and deploy directories."/>
+
+		<echo message="Creating deployment directories."  />
+		<mkdir dir="${tomcat.home}/webapps/${deploy.home}"/>
+	</target>
+		
+	<!-- Deploy Ext app-->
+	<target name="200-deploy-ui" depends="120-prepare">
+		<!-- Copy Ext JS libraries
+		<copy todir="${tomcat.home}/webapps/${deploy.home}/${ext.release}">
+			<fileset dir="${basedir}/${ext.release}" >
+                <include name="**/*.*"/>
+            </fileset>
+		</copy> -->
+
+		<!-- Copy Ext JS main files -->		
+		<copy todir="${tomcat.home}/webapps/${deploy.home}">
+			<fileset dir="${basedir}" >
+                <include name="*.html" />
+                <include name="*.js"   />
+                <include name="*.xml"  />
+            </fileset>
+		</copy>
+		
+		<!-- Copy Ext JS app files -->		
+		<copy todir="${tomcat.home}/webapps/${deploy.home}/app">
+			<fileset dir="${basedir}/app">
+                <include name="**/*.css"  />
+                <include name="**/*.html" />
+                <include name="**/*.js"   />
+            </fileset>
+		</copy>
+
+		<!-- Copy Ext JS resources
+		<copy todir="${tomcat.home}/webapps/${deploy.home}/resources">
+			<fileset dir="${basedir}/resources">
+                <include name="**/*.*"  />
+            </fileset>
+		</copy> -->
+		
+		<tstamp/>
+		<echo message="${DSTAMP} ${TSTAMP}"/>
+	</target>
+	
+	
+</project>

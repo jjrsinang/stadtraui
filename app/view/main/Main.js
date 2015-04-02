@@ -7,6 +7,7 @@
  */
 Ext.define('Stadtra.view.main.Main', {
     extend: 'Ext.container.Container',
+	plugins: 'viewport',
     requires: [
         'Stadtra.view.login.LogIn',
         'Stadtra.view.homepage.HomePage',
@@ -14,7 +15,7 @@ Ext.define('Stadtra.view.main.Main', {
     ],
 
     xtype: 'app-main',
-    id: 'viewport',
+    itemId: 'viewport',
 
     layout: {
         type: 'card'

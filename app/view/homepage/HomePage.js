@@ -42,6 +42,7 @@ Ext.define('Stadtra.view.homepage.HomePage', {
     	xtype: 'student-panel'
     }, {
         title: 'Logout',
+		itemId: 'logoutTab',
         glyph: 42
     }]
 	
