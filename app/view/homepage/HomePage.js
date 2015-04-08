@@ -1,10 +1,11 @@
 Ext.define('Stadtra.view.homepage.HomePage', {
     extend: 'Ext.tab.Panel',
 	requires:[
-		'Stadtra.view.homepage.homeTab',
-		'Stadtra.view.homepage.Adviser',
+		'Stadtra.view.homepage.HomeTab',
+		'Stadtra.view.homepage.Advisers',
 		'Stadtra.view.homepage.Profile',
-		'Stadtra.view.homepage.Students'
+		'Stadtra.view.homepage.Students',
+		'Stadtra.view.homepage.Admin'
 	],
 
     
@@ -21,30 +22,44 @@ Ext.define('Stadtra.view.homepage.HomePage', {
     height: 400,
 	
 	tabRotation: 0,
-
-	tools: [
-		{ 
-			type: 'gear',
-			tooltip: 'Options',
-			handler: function(){
-				
-			}
-		}
-	],
+	
 	items: [{
-		xtype: 'home-tab'
-		
-    }, {
 		xtype: 'profile'
     }, {
-		xtype: 'adviser-list'
+		xtype: 'teacher-panel'
     }, {
     	xtype: 'student-panel'
     }, {
-        title: 'Logout',
-		itemId: 'logoutTab',
-        glyph: 42
-    }]
+		xtype: 'admin-container'
+	}],
 	
-    
+    initComponent: function() {
+		var me = this;
+		
+		Ext.apply(me,{
+			tools: [
+				{
+					xtype: 'label',
+					text: Stadtra.app.userSession ?
+						Stadtra.app.userSession.data.user.lName +
+						', ' +
+						Stadtra.app.userSession.data.user.fName +
+						' ' +
+						Stadtra.app.userSession.data.user.mName
+						: '',
+					style: {
+						color: 'white'
+					},
+					padding: '0 15 0 0'
+				},
+				{ 
+					xtype: 'button',
+					text: 'Logout',
+					itemId: 'logoutButton'
+				}
+			],
+		});
+		
+		me.callParent();
+	}
 });

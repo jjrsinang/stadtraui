@@ -20,8 +20,8 @@ Ext.define('Stadtra.controllers.LoginController', {
              'login-container form #passwordField': {
                     specialkey: this.onPressEnter
              },
-             'home-page #logoutTab': {
-                    activate: this.onClickLogout
+             'home-page #logoutButton': {
+                    click: this.onClickLogout
              }
          });
      },

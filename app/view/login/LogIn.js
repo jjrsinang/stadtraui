@@ -32,6 +32,7 @@ Ext.define('Stadtra.view.login.LogIn', {
 					fieldLabel: 'Password',
 					inputType: 'password',
 					name: 'password',
+					emptyText: 'password',
 					allowBlank: false
 				},
 				{

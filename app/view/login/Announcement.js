@@ -16,7 +16,9 @@ Ext.define('Stadtra.view.login.Announcement', {
     		title: 'ANNOUNCEMENTS',
     		height: 550,
     		width: 500,
-    		padding: 50
+    		padding: 50,
+			bodyPadding: 10,
+			html: 'no announcements at this time'
     	}
     ]
 });

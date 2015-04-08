@@ -4,9 +4,6 @@ Ext.define('Stadtra.view.homepage.Adviser',{
 	xtype: 'adviser-list',
 	
 	title: 'Adviser',
-    glyph: 85,
-	
-	
 	
 	items: [{
 		title: 'Adviser List',

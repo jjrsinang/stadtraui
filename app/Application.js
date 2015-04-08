@@ -18,7 +18,9 @@ Ext.define('Stadtra.Application', {
     
     controllers: [
         'Stadtra.controllers.LoginController',
-		'Stadtra.controllers.StudentTableController'
+		'Stadtra.controllers.AdviserController',
+		'Stadtra.controllers.StudentController',
+		'Stadtra.controllers.ProfileController'
     ],
 	
 	views: [

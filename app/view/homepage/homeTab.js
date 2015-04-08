@@ -1,10 +1,9 @@
-Ext.define('Stadtra.view.homepage.homeTab', {
+Ext.define('Stadtra.view.homepage.HomeTab', {
     extend: 'Ext.panel.Panel',
 
     
     xtype: 'home-tab',
-	title: 'hoome',
-	glyph: 77,
+	title: 'Home',
 	items: [{
 		xtype: 'panel',
 		fieldLabel: 'Home',
@@ -28,13 +27,13 @@ Ext.define('Stadtra.view.homepage.homeTab', {
 				items: [
 					{
 						xtype: 'label',
-						text: 'Hi Mac! Welcome to STADTRA!',
+						text: 'Welcome to STADTRA!',
 						width: '100%',
 						labelSeparator: ' '
 					},
 					{
 						xtype: 'displayfield',
-						fieldLabel: 'Hi Mac!'
+						fieldLabel: 'Hi!'
 					}
 				]
 		}]

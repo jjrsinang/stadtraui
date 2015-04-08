@@ -21,7 +21,7 @@ Ext.define('Stadtra.model.UserSessionModel',{
         {name: 'loginId',          type: 'string', persist:false},
         {name: 'userName',          type: 'string', persist:false},
         {name: 'remoteAddress',      type: 'string', persist:false},
-        // used for logging out multiple users (IPC)
+        
 		{name: 'selected',			type	: 'bool',	defaultValue: false,	persist: false},
 		{name: 'selectedUsers',		defaultValue: []}
     ],

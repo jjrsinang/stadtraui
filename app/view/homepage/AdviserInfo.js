@@ -1,7 +1,7 @@
-Ext.define('Stadtra.view.homepage.StudentInfo', {
+Ext.define('Stadtra.view.homepage.AdviserInfo', {
 	extend: 'Ext.window.Window',
 	
-	xtype: 'student-info',
+	xtype: 'adviser-info',
 	height: 500,
 	width: 500,
 	
@@ -30,13 +30,8 @@ Ext.define('Stadtra.view.homepage.StudentInfo', {
 				},
 				{
 					xtype: 'displayfield',
-					fieldLabel: 'Student Number',
-					name: 'studentNo'
-				},
-				{
-					xtype: 'displayfield',
-					fieldLabel: 'Classification',
-					name: 'classification'
+					fieldLabel: 'Employee Number',
+					name: 'employeeNo'
 				},
 				{
 					xtype: 'displayfield',

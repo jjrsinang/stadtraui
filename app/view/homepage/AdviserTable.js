@@ -1,9 +1,9 @@
-Ext.define('Stadtra.view.homepage.StudentTable', {
+Ext.define('Stadtra.view.homepage.AdviserTable', {
     extend: 'Ext.grid.Panel',
-    xtype: 'student-table',
+    xtype: 'teacher-table',
 	
 	requires: [
-		'Stadtra.store.StudentStore',
+		'Stadtra.store.AdviserStore',
 		'Ext.toolbar.Paging',
         'Ext.ux.ProgressBarPager',
 		'Ext.grid.filters.Filters'
@@ -26,7 +26,7 @@ Ext.define('Stadtra.view.homepage.StudentTable', {
 				xtype: 'textfield',
 				fieldLabel: 'Filter',
 				emptyText: 'surname',
-				itemId: 'studentNameFilterField',
+				itemId: 'nameFilterField',
 				flex : 1,
 				labelWidth: 30,
 				width: 180,
@@ -37,14 +37,14 @@ Ext.define('Stadtra.view.homepage.StudentTable', {
 				return record.getFullName();
 			}
 		}, {
-			text: 'Student Number',
+			text: 'Employee Number',
 			width: 145,
-			dataIndex: 'studentNo',
+			dataIndex: 'employeeNo',
 			items    : {
 				xtype: 'textfield',
 				fieldLabel: 'Filter',
-				emptyText: 'xxxx-xxxxx',
-				itemId: 'studentNoFilterField',
+				emptyText: 'xxxxxxx',
+				itemId: 'employeeNoFilterField',
 				flex : 1,
 				labelWidth: 30,
 				width: 125,
@@ -52,9 +52,12 @@ Ext.define('Stadtra.view.homepage.StudentTable', {
 				enableKeyEvents: true
 			},
 		}, {
-			text: 'Classification',
-			width: 130,
-			dataIndex: 'classification',
+			text: 'Advisees',
+			width: 80,
+			dataIndex: 'email',
+			renderer: function(value, meta, record){
+				return record.getData().students.length;
+			}
 		}, {
 			text: 'Email',
 			flex: 1,
@@ -65,7 +68,7 @@ Ext.define('Stadtra.view.homepage.StudentTable', {
     initComponent: function () {
         var me = this;
 
-        me.store = Ext.create('Stadtra.store.StudentStore');
+        me.store = Ext.create('Stadtra.store.AdviserStore');
 		
 		Ext.apply(me, {
 			bbar: {

@@ -15,6 +15,7 @@ Ext.define('Stadtra.view.main.Main', {
     ],
 
     xtype: 'app-main',
+	autoScroll: true,
     itemId: 'viewport',
 
     layout: {
