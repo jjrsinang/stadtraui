@@ -9,6 +9,10 @@ Ext.define('Stadtra.view.homepage.Admin', {
 	],
     
     title: 'Admin',
+
+	layout: 'center',
+    
+    autoScroll: true,
     
     items: [
 		{

@@ -7,7 +7,11 @@ Ext.define('Stadtra.view.homepage.Students',{
 	],
 	
 	title: 'Students',
-	
+
+	layout: 'center',
+    
+    autoScroll: true,
+
 	items: [
 		{
 			xtype: 'student-table'

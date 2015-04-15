@@ -8,6 +8,11 @@ Ext.define('Stadtra.view.homepage.Advisers',{
 	xtype: 'teacher-panel',
 	
 	title: 'Advisers',
+
+	layout: 'center',
+    
+    autoScroll: true,
+
 	items: [
 		{
 			xtype: 'teacher-table'
