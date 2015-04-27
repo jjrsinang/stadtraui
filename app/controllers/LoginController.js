@@ -11,7 +11,7 @@ Ext.define('Stadtra.controllers.LoginController', {
      init: function() {
           // view events to listen to
          this.control({
-             'login-container form button': {
+             'login-container form button': { // kjsfbgkdhzfbglfisu
                     click: this.onClickButton
              },
              'login-container form #userField': {
@@ -60,13 +60,14 @@ Ext.define('Stadtra.controllers.LoginController', {
                     url: url,
                     method: 'POST',
                     waitMsg: 'Logging in...',
-                    success: function(fp, o) {
+                    success: function(fp, o) {console.log(o.result.data);
                          form.down('#errorText').hide();
                          // create a session
                          var session = Ext.create('Stadtra.model.UserSessionModel',{
                               user      : o.result.data.user,
                               loginDate : o.result.data.loginDate,
-                              userSessionId : o.result.data.userSessionId
+                              userSessionId : o.result.data.userSessionId,
+                              remoteAddress : o.result.data.remoteAddress
                          });
                          
                          session.save();
