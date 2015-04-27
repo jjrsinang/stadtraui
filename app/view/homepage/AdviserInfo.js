@@ -7,6 +7,7 @@ Ext.define('Stadtra.view.homepage.AdviserInfo', {
 	
 	title: 'Info',
 	modal: true,
+	autoScroll: true,
 	
 	items: [
 		{

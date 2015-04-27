@@ -50,7 +50,8 @@ Ext.define('Stadtra.Application', {
 				var session = Ext.create('Stadtra.model.UserSessionModel',{
 					user		: o.result.data.user,
 					loginDate	: o.result.data.loginDate,
-					userSessionId : o.result.data.userSessionId
+                    userSessionId : o.result.data.userSessionId,
+                    remoteAddress : o.result.data.remoteAddress
 				});
 				session.save();
 				window.location.reload();
@@ -66,7 +67,8 @@ Ext.define('Stadtra.Application', {
 						var session = Ext.create('Stadtra.model.UserSessionModel',{
 							user		: o.result.data.user,
 							loginDate	: o.result.data.loginDate,
-							userSessionId : o.result.data.userSessionId
+							userSessionId : o.result.data.userSessionId,
+							remoteAddress : o.result.data.remoteAddress
 						});
 						Stadtra.app.userSession.proxy.clear();
 						Stadtra.app.userSession = null;

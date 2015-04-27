@@ -13,15 +13,25 @@ Ext.define('Stadtra.model.AdviserModel', {
 		{name	: 'birthDate', 	    type	: 'string'},
 		{name	: 'sex',		    type	: 'string'},
 		{name	: 'email',	        type	: 'string'},
+        {name	: 'status',	        type	: 'string'},
+        
+        {name   : 'studentId',      type    : 'int'},
+        
         {name   : 'students'}
 	],
     
-    associations: [{
-		type	: 'hasMany',
-		model	: 'Stadtra.model.TeacherStudentModel',
-		name	: 'students',
-		associationKey: 'students'
-	}],
+    //hasMany : [
+    //    {
+    //        model	: 'Stadtra.model.TeacherStudentModel',
+    //        name	: 'students',
+    //    }
+    //],
+//    associations: [{
+//		type	: 'hasMany',
+//		model	: 'Stadtra.model.TeacherStudentModel',
+//		name	: 'students',
+//		associationKey: 'students'
+//	}],
     
     getFullName: function() {
         return this.getData().lName + ', ' + this.getData().fName + ' ' + this.getData().mName;

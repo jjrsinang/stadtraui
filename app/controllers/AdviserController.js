@@ -15,7 +15,7 @@ Ext.define('Stadtra.controllers.AdviserController', {
           // view events to listen to
          this.control({
              'teacher-table': {
-                    itemclick: this.onClickViewStudent
+                    itemclick: this.onClickViewAdviser
              },
              'teacher-table #nameFilterField': {
                     keyup: this.onNameFilterKeyup
@@ -26,11 +26,49 @@ Ext.define('Stadtra.controllers.AdviserController', {
          });
      },
 
-     onClickViewStudent: function(grid, record, item, index, e, eOpts) {
-		  var window = Ext.create('Stadtra.view.homepage.AdviserInfo');
+     onClickViewAdviser: function(grid, record, item, index, e, eOpts) {
+		  // create adviser info window and load info into form
+          var window = Ext.create('Stadtra.view.homepage.AdviserInfo');
 		  window.show();
 		  window.down('form').loadRecord(record);
-          console.log('number of students: ' + record.getData().students.length);
+          
+          // create grid, fill it with advisees, and add it to info window
+          var store = Ext.create('Stadtra.store.StudentStore');
+          for (var i = 0; i < record.getData().students.length; i++) {
+               console.log(record.getData().students[i].student);
+               store.add(record.getData().students[i].student);
+          }
+          var studentGrid = Ext.create('Ext.grid.Panel',{
+               xtype: 'grid',
+               minHeight: 100,
+               emptyText: 'there are no advisees',
+               viewConfig: {
+                    deferEmptyText: false
+               },
+               store: store,
+               columns: [
+                    {
+                         text: 'Student No',
+                         dataIndex: 'studentNo',
+                         flex: 1
+                    },
+                    {
+                         text: 'Name',
+                         dataIndex: 'lName',
+                         flex: 2,
+                         renderer: function(value, cls, record) {
+                              return record.getFullName();
+                         }
+                    },
+                    {
+                         text: 'Classification',
+                         dataIndex: 'classification',
+                         flex: 2
+                    }
+               ]
+          });
+          
+          window.add(studentGrid);
      },
      
      // TO DO: merge into a single function

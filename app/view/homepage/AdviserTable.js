@@ -14,8 +14,20 @@ Ext.define('Stadtra.view.homepage.AdviserTable', {
     }],
 	
 	maxHeight: 450,
-    width : 650,
+    width : 750,
     multiColumnSort: true,
+	
+	dockedItems: [
+		{
+			xtype: 'toolbar',
+			items: [
+				'->',
+				{
+				text:'Print',
+				tooltip:'Print to PDF'
+			}]
+		}
+	],
 
     columns: [
 		{
@@ -62,6 +74,10 @@ Ext.define('Stadtra.view.homepage.AdviserTable', {
 			text: 'Email',
 			flex: 1,
 			dataIndex: 'email'
+		}, {
+			text: 'Status',
+			width: 100,
+			dataIndex: 'status'
 		}
 	],
 
