@@ -13,6 +13,7 @@ Ext.define('Stadtra.view.login.LogIn', {
     items: [
     	{
     		xtype: 'form',
+			itemId: 'loginForm',
     		title: 'Log in to STADTRA',
 			jsonSubmit: true,
 			bodyPadding: 10,

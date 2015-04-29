@@ -5,7 +5,8 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 		'Stadtra.view.homepage.Advisers',
 		'Stadtra.view.homepage.Profile',
 		'Stadtra.view.homepage.Students',
-		'Stadtra.view.homepage.Admin'
+		'Stadtra.view.homepage.Admin',
+		'Stadtra.view.login.Announcement'
 	],
 
     
@@ -24,6 +25,8 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 	tabRotation: 0,
 	
 	items: [{
+		xtype: 'announcement-container'
+	},{
 		xtype: 'profile'
     }, {
 		xtype: 'teacher-panel'

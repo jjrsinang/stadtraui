@@ -46,7 +46,7 @@ Ext.define('Stadtra.controllers.LoginController', {
      
      login: function() {console.log('called login');
           var url = window.location.href + 'ws/security/login';
-          var form = Ext.ComponentQuery.query('login-container')[0].down('form');
+          var form = Ext.ComponentQuery.query('login-container')[0].down('#loginForm');
           
           // if already logged in, reload browser tab to redirect to homepage
           if (Ext.util.Cookies.get('stadtraLoggedIn')) {

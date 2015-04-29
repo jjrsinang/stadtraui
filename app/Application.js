@@ -20,7 +20,8 @@ Ext.define('Stadtra.Application', {
         'Stadtra.controllers.LoginController',
 		'Stadtra.controllers.AdviserController',
 		'Stadtra.controllers.StudentController',
-		'Stadtra.controllers.ProfileController'
+		'Stadtra.controllers.ProfileController',
+		'Stadtra.controllers.AnnouncementController'
     ],
 	
 	views: [
