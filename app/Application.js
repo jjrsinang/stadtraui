@@ -20,7 +20,9 @@ Ext.define('Stadtra.Application', {
         'Stadtra.controllers.LoginController',
 		'Stadtra.controllers.AdviserController',
 		'Stadtra.controllers.StudentController',
-		'Stadtra.controllers.ProfileController'
+		'Stadtra.controllers.ProfileController',
+		'Stadtra.controllers.AnnouncementController',
+		'Stadtra.controllers.NotificationController'
     ],
 	
 	views: [
@@ -50,8 +52,7 @@ Ext.define('Stadtra.Application', {
 				var session = Ext.create('Stadtra.model.UserSessionModel',{
 					user		: o.result.data.user,
 					loginDate	: o.result.data.loginDate,
-                    userSessionId : o.result.data.userSessionId,
-                    remoteAddress : o.result.data.remoteAddress
+					userSessionId : o.result.data.userSessionId
 				});
 				session.save();
 				window.location.reload();
@@ -67,8 +68,7 @@ Ext.define('Stadtra.Application', {
 						var session = Ext.create('Stadtra.model.UserSessionModel',{
 							user		: o.result.data.user,
 							loginDate	: o.result.data.loginDate,
-							userSessionId : o.result.data.userSessionId,
-							remoteAddress : o.result.data.remoteAddress
+							userSessionId : o.result.data.userSessionId
 						});
 						Stadtra.app.userSession.proxy.clear();
 						Stadtra.app.userSession = null;
