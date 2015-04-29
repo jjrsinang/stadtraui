@@ -55,8 +55,28 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
           var window = Ext.create('Ext.window.Window',{
                modal: true,
                title: 'Add Announcement',
-               height: 200,
-               width: 300
+               height: 400,
+               resizable: false,
+               bodyPadding: 10,
+               width: 600,
+               items: [{
+                  xtype: 'textfield',
+                  name: 'title',
+                  fieldLabel: 'Title',
+                  allowBlank: false,
+                  width: 550
+               },{
+                  xtype: 'textarea',
+                  name: 'body',
+                  fieldLabel: 'Content',
+                  allowBlank: false,
+                  width: 550,
+                  height: 250
+               },{
+                  xtype: 'button',
+                  text: 'Submit',
+                  itemId: 'submitButton'
+               }]
           });
           window.show();
      }

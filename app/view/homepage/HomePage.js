@@ -41,6 +41,11 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 		
 		Ext.apply(me,{
 			tools: [
+				{ 
+					xtype: 'button',
+					text: 'Notification(s): 0',
+					itemId: 'notifButton'
+				},			
 				{
 					xtype: 'label',
 					text: Stadtra.app.userSession ?
