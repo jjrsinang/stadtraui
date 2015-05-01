@@ -25,30 +25,48 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
 
      onActivate: function(container) {
           var store = Ext.create('Stadtra.store.AnnouncementStore');
-          store.load(function(records, operation, success){
-               if (success) {
+          //store.load(function(records, operation, success){
+               //if (success) {
                     var panel = container.down('#announcementPanel');
                     
                     store.each(function(announcement){
                          var form = Ext.create('Ext.form.Panel',{
-                              title: announcement.data.title,
                               bodyPadding: 10,
                               items : [
-                                   {
+								   {
+                                        xtype: 'label',
+                                        text: announcement.data.title,
+										style: 'font: normal 30px courier; font-weight: bold;text-align:center;display:block'
+								   },
+								   {
                                         xtype: 'textarea',
                                         readOnly: true,
-                                        fieldLabel: 'Body',
+                                        //fieldLabel: 'Body',
                                         labelWidth: 50,
-                                        width: 370,
-                                        height: 220,
+                                        width: 360,
+                                        height: 335,
                                         value: announcement.data.body
                                    }
                               ]
                          });
                          panel.add(form);
                     });
-               }
-          });
+					
+					var current_index = 0;
+					var run = function (delay) {
+						Ext.create('Ext.util.DelayedTask', function () {
+							if(current_index == store.getCount())
+								current_index = 0;
+							panel.setActiveItem(current_index, {type: 'slide', direction: 'right'});
+							
+							current_index += 1;
+							run(delay);
+						}).delay(delay);
+					};
+
+					run(3000);
+               //}
+          //});
      },
      
      addAnnouncement: function() {

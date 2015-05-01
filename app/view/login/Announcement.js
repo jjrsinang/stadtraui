@@ -20,8 +20,9 @@ Ext.define('Stadtra.view.login.Announcement', {
     		width: 500,
     		padding: 50,
 			bodyPadding: 10,
-			html: 'no announcements at this time',
-			layout: 'accordion'
+			//html: 'no announcements at this time',
+			layout: 'card'
+			
     	}
     ],
 	
