@@ -206,7 +206,11 @@ Ext.define('Stadtra.controllers.StudentController', {
           //     }
           //});
           store.each(function(item){
-               if (item.phantom && item.data.employeeNo && item.data.employeeNo != '<i>click to edit</i>') {
+               if (item.phantom &&
+                   item.data.employeeNo &&
+                   item.data.teacherName &&
+                   item.data.teacherId &&
+                   item.data.employeeNo != '<i>click to edit</i>') {
                     item.save({
                          callback : function (records, operation, success) {
                               console.log(records);

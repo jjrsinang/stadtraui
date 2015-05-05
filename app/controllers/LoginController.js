@@ -11,7 +11,7 @@ Ext.define('Stadtra.controllers.LoginController', {
      init: function() {
           // view events to listen to
          this.control({
-             'login-container form button': { // kjsfbgkdhzfbglfisu
+             'login-container #loginForm button': { // kjsfbgkdhzfbglfisu
                     click: this.onClickButton
              },
              'login-container form #userField': {

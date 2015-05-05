@@ -22,9 +22,13 @@ Ext.define('Stadtra.view.homepage.AdviserTable', {
 			xtype: 'toolbar',
 			items: [
 				'->',
-				{
+			{
 				text:'Print',
-				tooltip:'Print to PDF'
+				tooltip:'Print to PDF',
+				handler: function() {
+					var url = document.location.origin + '/stadtrarpt/run?__report=report/Adviser2.rptdesign&__format=pdf'
+					window.open(url, '_blank');
+				}
 			}]
 		}
 	],

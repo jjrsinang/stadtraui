@@ -43,8 +43,9 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 			tools: [
 				{ 
 					xtype: 'button',
-					text: 'Notification(s): 0',
-					itemId: 'notifButton'
+					text: '0',
+					itemId: 'notifButton',
+					width: 25
 				},			
 				{
 					xtype: 'label',
@@ -58,7 +59,7 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 					style: {
 						color: 'white'
 					},
-					padding: '0 15 0 0'
+					padding: '0 15 0 15'
 				},
 				{ 
 					xtype: 'button',

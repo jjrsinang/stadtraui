@@ -17,12 +17,25 @@ Ext.define('Stadtra.view.login.Announcement', {
     		xtype: 'panel',
 			itemId: 'announcementPanel',
     		height: 550,
-    		width: 500,
+    		width: 600,
     		padding: 50,
-			bodyPadding: 10,
-			//html: 'no announcements at this time',
-			layout: 'card'
-			
+			html: 'no announcements at this time',
+			layout: 'card',
+			dockedItems: [{
+				xtype: 'toolbar',
+				dock: 'bottom',
+				items: [
+					{
+						xtype: 'slider',
+						flex: 1,
+						increment: 1,
+						minValue: 0,
+						maxValue: 0,
+						value: 0,
+						readOnly: true
+					}
+				]
+			}]
     	}
     ],
 	

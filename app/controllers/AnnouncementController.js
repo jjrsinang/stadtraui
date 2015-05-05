@@ -26,13 +26,32 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
      onActivate: function(container) {
 
           var store = Ext.create('Stadtra.store.AnnouncementStore');
-          //store.load(function(records, operation, success){
-               //if (success) {
+          store.load(function(records, operation, success){
+               if (success) {
                     var panel = container.down('#announcementPanel');
                     
+                    var slider = panel.down('slider');
+                    slider.setMaxValue(store.count()-1);
+                    
+                    var current_index = 0;
+					var run = function (dir) {
+                         
+                         current_index = current_index + dir;
+                         if(current_index == store.getCount()) {
+                             current_index = 0;
+                         } else if (current_index < 0) {
+                             current_index = store.getCount() -1; 
+                         }
+                         
+                         panel.setActiveItem(current_index);
+                         slider.setValue(current_index);
+					};
+                    
                     store.each(function(announcement){
+                         
                          var form = Ext.create('Ext.form.Panel',{
                               bodyPadding: 10,
+                              height: '100%',
                               items : [
 								   {
                                         xtype: 'label',
@@ -42,15 +61,56 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
 								   {
                                         xtype: 'textarea',
                                         readOnly: true,
-                                        //fieldLabel: 'Body',
-                                        labelWidth: 50,
-                                        width: 360,
-                                        height: 335,
+                                        width: 400,
+                                        height: 300,
                                         value: announcement.data.body
+                                   },
+                                   {
+                                        xtype: 'button',
+                                        text: 'View Attachment',
+                                        hidden: announcement.data.filename ? false : true,
+                                        handler: function () {
+                                             var url = document.location.href + 'ws/announcements/' + announcement.data.id
+                                             window.open(url, '_blank');
+                                        }
                                    }
                               ]
                          });
-                         panel.add(form);
+                         
+                         var cont = Ext.create('Ext.panel.Panel',{
+                              layout : 'hbox',
+                              items : [
+                                   {
+                                        xtype: 'panel',
+                                        html: '<br><br><br><br><br><br><br><br><br><center><</center>',
+                                        width: 40,
+                                        height: '100%',
+                                        listeners: {
+                                             'render': function(panel) {
+                                                  panel.body.on('click', function() {
+                                                       run(-1);
+                                                  });
+                                             }
+                                        }
+                                   },
+                                   form,
+                                   {
+                                        xtype: 'panel',
+                                        html: '<br><br><br><br><br><br><br><br><br><center>></center>',
+                                        width: 40,
+                                        height: '100%',
+                                        listeners: {
+                                             'render': function(panel) {
+                                                  panel.body.on('click', function() {
+                                                       run(1);
+                                                  });
+                                             }
+                                        }
+                                   }
+                              ]
+                         });
+                         
+                         panel.add(cont);
                     });
 					
 					Ext.override(Ext.layout.container.Card, {
@@ -149,27 +209,12 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
 							return false;
 						}
 					});
-					
-					
-					
-					var current_index = 0;
-					var run = function (delay) {
-						Ext.create('Ext.util.DelayedTask', function () {
-							if(current_index == store.getCount())
-								current_index = 0;
-							panel.setActiveItem(current_index);
-							
-							current_index += 1;
-							run(delay);
-						}).delay(delay);
-					};
-
-					run(3000);
-               //}
-          //});
+               }
+          });
      },
      
      addAnnouncement: function() {
+          
           var window = Ext.create('Ext.window.Window',{
                modal: true,
                title: 'Add Announcement',
@@ -178,22 +223,56 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
                bodyPadding: 10,
                width: 600,
                items: [{
-                  xtype: 'textfield',
-                  name: 'title',
-                  fieldLabel: 'Title',
-                  allowBlank: false,
-                  width: 550
-               },{
-                  xtype: 'textarea',
-                  name: 'body',
-                  fieldLabel: 'Content',
-                  allowBlank: false,
-                  width: 550,
-                  height: 250
-               },{
-                  xtype: 'button',
-                  text: 'Submit',
-                  itemId: 'submitButton'
+                    xtype: 'form',
+                    items: [
+                         {
+                              xtype: 'textfield',
+                              name: 'title',
+                              fieldLabel: 'Title',
+                              msgTarget: 'side',
+                              allowBlank: false,
+                              width: 550
+                         },{
+                              xtype: 'textarea',
+                              name: 'body',
+                              fieldLabel: 'Content',
+                              msgTarget: 'side',
+                              allowBlank: false,
+                              width: 550,
+                              height: 250
+                         },{
+                              xtype: 'filefield',
+                              name: 'data',
+                              fieldLabel: 'File',
+                              buttonText: 'Select file...',
+                              msgTarget: 'side',
+                              regex: /^.*\.(pdf||PDF)$/i,
+                              regexText: 'file must be in .pdf format',
+                              width: 550
+                         },{
+                              xtype: 'button',
+                              text: 'Submit',
+                              itemId: 'submitButton',
+                              handler: function (button) {
+                                   var form = button.up('form').getForm();
+                                   if (form.isValid()) {
+                                        form.submit({
+                                             url: '/stadtra/ws/announcements',
+                                             waitMsg: 'Uploading attachment...',
+                                             success: function(fp, o) {
+                                                  console.log('success');
+                                                  var box = Ext.Msg.alert('STADTRA','Upload finished.');
+                                                  window.close();
+                                             },
+                                             failure: function(fp, o) {
+                                                  console.log('failure');
+                                                  var box = Ext.Msg.alert('STADTRA','Upload failed.');
+                                             }
+                                        });
+                                   }
+                              }
+                         }
+                    ]
                }]
           });
           window.show();

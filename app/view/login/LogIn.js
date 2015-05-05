@@ -25,6 +25,7 @@ Ext.define('Stadtra.view.login.LogIn', {
 					fieldLabel: 'Username',
 					name: 'loginId',
 					emptyText: 'employee/student no',
+					msgTarget: 'side',
 					allowBlank: false
 				},
 				{
@@ -34,6 +35,7 @@ Ext.define('Stadtra.view.login.LogIn', {
 					inputType: 'password',
 					name: 'password',
 					emptyText: 'password',
+					msgTarget: 'side',
 					allowBlank: false
 				},
 				{
