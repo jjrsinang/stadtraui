@@ -16,7 +16,53 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 		type: 'absolute'
 	},
     
-    title: 'STADTRA',
+    title: {
+            xtype: 'toolbar',
+            style: {
+                'background-color': '#157fcc'
+            },
+            height: 37,
+			padding: '1 1 1 1',
+            items: [
+                {
+                    xtype: 'image',
+                    src: 'resources/images/logo.png',
+                    width: 40,
+                    height: 40
+                },
+                {
+                    xtype: 'panel',
+                    bodyStyle: 'background:#157fcc;',
+                    width: 141,
+                    layout: 'vbox',
+                    items: [
+                        {
+                            xtype: 'label',
+                            text: 'STADTRA',
+                            padding: '2 0 0 0',
+                            style: {
+                                fontSize: '22px',
+                                fontWeight: 'bold',
+                                color: 'white'
+                            }
+                        },
+                        {
+                            xtype: 'label',
+                            text: 'Student-Adviser Tracker',
+                            style: {
+                                color: 'white'
+                            }
+                        }
+                    ]
+                },
+				{
+                    xtype: 'image',
+                    src: 'resources/images/logo2.png',
+                    width: 40,
+                    height: 40
+                }
+            ]
+        },
 	//ui: 'navigation',
 	tabPosition: 'left',
 	width: 400,
@@ -24,7 +70,8 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 	
 	tabRotation: 0,
 	
-	items: [{
+	items: [
+	{
 		xtype: 'announcement-container'
 	},{
 		xtype: 'profile'
@@ -59,7 +106,7 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 					style: {
 						color: 'white'
 					},
-					padding: '0 15 0 15'
+					padding: '0 5 0 5'
 				},
 				{ 
 					xtype: 'button',

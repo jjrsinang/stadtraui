@@ -23,14 +23,14 @@ Ext.define('Stadtra.view.login.MainContainer', {
             items: [
                 {
                     xtype: 'image',
-                    src: 'resources/images/ics.png',
+                    src: 'resources/images/logo.png',
                     width: 50,
                     height: 50
                 },
                 {
                     xtype: 'panel',
                     bodyStyle: 'background:#157fcc;',
-                    width: 200,
+                    width: 141,
                     layout: 'vbox',
                     items: [
                         {
@@ -51,6 +51,12 @@ Ext.define('Stadtra.view.login.MainContainer', {
                             }
                         }
                     ]
+                },
+				{
+                    xtype: 'image',
+                    src: 'resources/images/logo2.png',
+                    width: 50,
+                    height: 50
                 }
             ]
         },
