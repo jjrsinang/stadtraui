@@ -56,6 +56,7 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
 								   {
                                         xtype: 'label',
                                         text: announcement.data.title,
+										width: 400,
 										style: 'font: normal 30px courier; font-weight: bold;text-align:center;display:block'
 								   },
 								   {
@@ -228,6 +229,7 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
                          {
                               xtype: 'textfield',
                               name: 'title',
+							  maxLength: 30,
                               fieldLabel: 'Title',
                               msgTarget: 'side',
                               allowBlank: false,
@@ -235,6 +237,7 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
                          },{
                               xtype: 'textarea',
                               name: 'body',
+							  maxLength: 300,
                               fieldLabel: 'Content',
                               msgTarget: 'side',
                               allowBlank: false,
@@ -243,6 +246,7 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
                          },{
                               xtype: 'filefield',
                               name: 'data',
+							  maxLength: 30,
                               fieldLabel: 'File',
                               buttonText: 'Select file...',
                               msgTarget: 'side',
