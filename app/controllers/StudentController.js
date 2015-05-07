@@ -2,7 +2,8 @@ Ext.define('Stadtra.controllers.StudentController', {
      extend: 'Ext.app.Controller',
      
 	 requires: [
-		'Stadtra.view.homepage.StudentInfo'
+		'Stadtra.view.homepage.StudentInfo',
+        'Stadtra.view.homepage.StudentTable'
 	 ],
 	 
      alias: 'controller.studentcontroller',
@@ -13,10 +14,6 @@ Ext.define('Stadtra.controllers.StudentController', {
      
      stores : [
           'Stadtra.store.AdviserStore'
-     ],
-     
-     views: [
-          'homepage.StudentTable',
      ],
      
      init: function() {
@@ -160,7 +157,7 @@ Ext.define('Stadtra.controllers.StudentController', {
                          dataIndex: 'dateApproved',
                          width: 120,
                          editor: 'datefield'
-                    },
+                    }
                ],
                listeners : {
                     cellclick : function (thisGrid, td, cellIndex, record, tr, rowIndex) {

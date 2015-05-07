@@ -7,8 +7,8 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
           'Stadtra.store.AnnouncementStore'
      ],
      
-     views: [
-          'login.Announcement'
+     requires: [
+          'Stadtra.view.login.Announcement'
      ],
      
      init: function() {

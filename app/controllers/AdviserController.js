@@ -2,14 +2,11 @@ Ext.define('Stadtra.controllers.AdviserController', {
      extend: 'Ext.app.Controller',
      
 	 requires: [
-		'Stadtra.view.homepage.AdviserInfo'
+          'Stadtra.view.homepage.AdviserTable',
+          'Stadtra.view.homepage.AdviserInfo'
 	 ],
 	 
      alias: 'controller.advisercontroller',
-     
-     views: [
-          'homepage.AdviserTable',
-     ],
      
      init: function() {
           // view events to listen to

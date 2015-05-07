@@ -113,7 +113,7 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 					text: 'Logout',
 					itemId: 'logoutButton'
 				}
-			],
+			]
 		});
 		
 		me.callParent();

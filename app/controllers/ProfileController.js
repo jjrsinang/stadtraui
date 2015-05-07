@@ -5,11 +5,8 @@ Ext.define('Stadtra.controllers.ProfileController', {
      
      requires: [
           'Stadtra.view.homepage.ProfileGradeTable',
-          'Stadtra.view.homepage.ProfileSubjectTable'
-     ],
-     
-     views: [
-          'homepage.Profile'
+          'Stadtra.view.homepage.ProfileSubjectTable',
+          'Stadtra.view.homepage.Profile'
      ],
      
      init: function() {
@@ -98,7 +95,7 @@ Ext.define('Stadtra.controllers.ProfileController', {
                                    text: 'Date Approved',
                                    dataIndex: 'dateApproved',
                                    width: 175
-                              },
+                              }
                          ]
                     });
                     

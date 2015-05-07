@@ -50,11 +50,11 @@ Ext.define('Stadtra.view.homepage.StudentTable', {
 				width: 125,
 				padding: '0 0 0 10',
 				enableKeyEvents: true
-			},
+			}
 		}, {
 			text: 'Classification',
 			width: 130,
-			dataIndex: 'classification',
+			dataIndex: 'classification'
 		}, {
 			text: 'Email',
 			flex: 1,

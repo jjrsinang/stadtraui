@@ -3,9 +3,9 @@ Ext.define('Stadtra.controllers.LoginController', {
      
      alias: 'controller.logincontroller',
      
-     views: [
-          'login.LogIn',
-          'main.Main'
+     requires: [
+          'Stadtra.view.login.LogIn',
+          'Stadtra.view.main.Main'
      ],
      
      init: function() {

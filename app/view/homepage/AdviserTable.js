@@ -66,7 +66,7 @@ Ext.define('Stadtra.view.homepage.AdviserTable', {
 				width: 125,
 				padding: '0 0 0 10',
 				enableKeyEvents: true
-			},
+			}
 		}, {
 			text: 'Advisees',
 			width: 80,
