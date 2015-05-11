@@ -11,6 +11,7 @@ Ext.define('Stadtra.view.homepage.ProfileSubjectTable', {
 	maxHeight: 450,
 	width : 700,
 	padding: 10,
+	teacherId: null,
 	
     columns: [
 		{
@@ -69,11 +70,15 @@ Ext.define('Stadtra.view.homepage.ProfileSubjectTable', {
 		var url = '';
 		var model = '';
 		if (Stadtra.app.userSession) {
-			if (Stadtra.app.userSession.data.user.student) {
+			if (me.teacherId) {
+				id = me.teacherId;
+				model = 'Stadtra.model.TeacherSubjectModel';
+				url = '/stadtra/ws/teachers/subjects';
+			} else if (Stadtra.app.userSession.data.user.student) {
 				id = Stadtra.app.userSession.data.user.student.id;
 				model = 'Stadtra.model.GradeModel';
 				url = '/stadtra/ws/students/grades';
-			} else {
+			} else if (Stadtra.app.userSession.data.user.teacher) {
 				id = Stadtra.app.userSession.data.user.teacher.id;
 				model = 'Stadtra.model.TeacherSubjectModel';
 				url = '/stadtra/ws/teachers/subjects';

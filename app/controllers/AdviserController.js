@@ -29,6 +29,11 @@ Ext.define('Stadtra.controllers.AdviserController', {
 		  window.show();
 		  window.down('form').loadRecord(record);
           
+          var subjects = Ext.create('Stadtra.view.homepage.ProfileSubjectTable',{
+               teacherId: record.data.id,
+               padding: '0 0 10 0'
+          });
+          
           // create grid, fill it with advisees, and add it to info window
           var store = Ext.create('Stadtra.store.StudentStore');
           for (var i = 0; i < record.getData().students.length; i++) {
@@ -36,6 +41,7 @@ Ext.define('Stadtra.controllers.AdviserController', {
                store.add(record.getData().students[i].student);
           }
           var studentGrid = Ext.create('Ext.grid.Panel',{
+               title: 'Advisees',
                xtype: 'grid',
                minHeight: 100,
                emptyText: 'there are no advisees',
@@ -65,7 +71,7 @@ Ext.define('Stadtra.controllers.AdviserController', {
                ]
           });
           
-          window.add(studentGrid);
+          window.add([subjects, studentGrid]);
      },
      
      // TO DO: merge into a single function

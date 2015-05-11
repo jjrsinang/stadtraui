@@ -43,6 +43,11 @@ Ext.define('Stadtra.controllers.StudentController', {
 		  window.show();
 		  window.down('form').loadRecord(record);
           
+          var isAdmin = false;
+          if (Stadtra.app.userSession.data.user.role == 'admin') {
+               isAdmin = true;
+          }
+          
           // create grid, fill it with advisers, and add it to info window
           var store = Ext.create('Ext.data.Store',{
                model : 'Stadtra.model.TeacherStudentModel',
@@ -88,7 +93,7 @@ Ext.define('Stadtra.controllers.StudentController', {
                     })
                ],
                store: store,
-               dockedItems: [{
+               dockedItems: isAdmin ? [{
                     xtype: 'toolbar',
                     dock: 'bottom',
                     ui: 'footer',
@@ -100,10 +105,6 @@ Ext.define('Stadtra.controllers.StudentController', {
                               minWidth: 80,
                               text: 'Save',
                               itemId: 'saveButton'
-                         },
-                         {
-                              minWidth: 80,
-                              text: 'Reset'
                          }
                     ]
                }, {
@@ -113,7 +114,7 @@ Ext.define('Stadtra.controllers.StudentController', {
                        itemId: 'addAdviserButton',
                        tooltip:'Add a new adviser'
                    }]
-               }],
+               }] : null,
                columns: [
                     {
                          text: 'Employee No',

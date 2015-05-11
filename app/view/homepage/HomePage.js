@@ -79,9 +79,15 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 		xtype: 'teacher-panel'
     }, {
     	xtype: 'student-panel'
-    }, {
-		xtype: 'admin-container'
-	}],
+    }],
+	
+	listeners: {
+		afterrender: function(me) {
+			if (Stadtra.app.userSession && Stadtra.app.userSession.data.user.role == 'admin') {
+				me.add({xtype: 'admin-container'});
+			}
+		}
+	},
 	
     initComponent: function() {
 		var me = this;

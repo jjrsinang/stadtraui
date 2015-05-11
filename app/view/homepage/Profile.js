@@ -30,11 +30,21 @@ Ext.define('Stadtra.view.homepage.Profile', {
 						{ fieldLabel: 'Last Name',		name: 'lName'},
 						{ fieldLabel: 'Role',			name: 'role'},
 						{ fieldLabel: 'Email Address',	name: 'email'},
-						{ fieldLabel: 'Sex',			name: 'sex'},
-						{ xtype: 'button', text: 'Change Adviser'}
+						{ fieldLabel: 'Sex',			name: 'sex'}
 					]
 				}
 			]
 		}
-	]
+	],
+	
+	listeners: {
+		afterrender: function(panel) {
+			if (Stadtra.app.userSession) {
+				if (Stadtra.app.userSession.data.user.student) {
+					panel.down('form').add({ xtype: 'button', text: 'Change Adviser', itemId: 'changeAdviserButton'});
+				}
+			}
+		}
+	}
+	
 });

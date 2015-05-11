@@ -41,7 +41,7 @@ Ext.define('Stadtra.view.login.Announcement', {
 	
 	listeners: {
 		afterrender: function(container) {
-			if (container.up('home-page')) {
+			if (container.up('home-page') && Stadtra.app.userSession && Stadtra.app.userSession.data.user.role=='admin') {
 				var button = Ext.create('Ext.button.Button',{
 					text: 'Add',
 					itemId: 'addAnnouncement'

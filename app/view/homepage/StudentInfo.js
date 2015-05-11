@@ -7,6 +7,7 @@ Ext.define('Stadtra.view.homepage.StudentInfo', {
 	
 	title: 'Info',
 	modal: true,
+    resizable: false,
 	autoScroll: true,
 	
 	items: [

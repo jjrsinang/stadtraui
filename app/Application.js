@@ -36,6 +36,14 @@ Ext.define('Stadtra.Application', {
 			'Content-Type': 'application/json'
 		};
 		
+		// set request timeout to 60 seconds
+		Ext.Ajax.setTimeout(90000); 
+		Ext.override(Ext.form.Basic, { timeout: Ext.Ajax.timeout / 1000 });
+		Ext.override(Ext.data.proxy.Server, { timeout: Ext.Ajax.timeout });
+		Ext.override(Ext.data.Connection, { timeout: Ext.Ajax.timeout });
+		Ext.override(Ext.data.proxy.Ajax, { timeout: 90000 });
+		Ext.override(Ext.form.action.Action, { timeout: 90 });
+		
 		this.loadUserSession();
 		
 		// get reference to login cotroller to gain access to login/logout functions

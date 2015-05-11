@@ -14,6 +14,9 @@ Ext.define('Stadtra.controllers.ProfileController', {
          this.control({
              'profile': {
                     activate: this.onActivate
+             },
+             'profile #changeAdviserButton': {
+                    click: this.onClickChangeAdviser
              }
          });
      },
@@ -30,8 +33,8 @@ Ext.define('Stadtra.controllers.ProfileController', {
                     mName: user.mName,
                     lName: user.lName,
                     role: user.role,
-                    email: user.student ? user.student.email : user.teacher.email,
-                    sex: user.student ? user.student.sex : user.teacher.sex
+                    email: user.student ? user.student.email : user.teacher ? user.teacher.email : null,
+                    sex: user.student ? user.student.sex : user.teacher ? user.teacher.sex : null
                });
                
                var hasGrade = profile.down('#formItem').down('grade-table');
@@ -100,7 +103,7 @@ Ext.define('Stadtra.controllers.ProfileController', {
                     });
                     
                     profile.down('#formItem').add([subjects, grades, adviserGrid]);
-               } else if (!user.student && !hasSubject && !hasAdvisee) {
+               } else if (user.teacher && !hasSubject && !hasAdvisee) {
                     var subjects = Ext.create('Stadtra.view.homepage.ProfileSubjectTable');
                     
                     // create grid, fill it with advisees, and add it to info window
@@ -144,5 +147,156 @@ Ext.define('Stadtra.controllers.ProfileController', {
                     profile.down('#formItem').add([subjects, studentGrid]);
                }
           }
-     } 
+     },
+     
+     onClickChangeAdviser: function () {
+          var me = this;
+          
+          var searchStore = Ext.create('Ext.data.Store', {
+               model: 'Stadtra.model.AdviserModel',
+               idProperty: 'id',
+               autoLoad: false,
+               proxy: {
+                    type: 'rest',
+                    url: document.location.href + 'ws/teachers/query/results',
+                    reader: {
+                        type: 'json',
+                        rootProperty: 'data',
+                        totalProperty: 'recordCount',
+                        successProperty: 'success'
+                    }
+               }
+          });
+          
+          
+          var window = Ext.create('Ext.window.Window',{
+               title: 'Select adviser',
+               bodyPadding: 10,
+               modal: true,
+               resizable: false,
+               items: [
+                    {
+                         xtype: 'form',
+                         layout: 'vbox',
+                         items: [
+                              {
+                                   xtype: 'combo',
+                                   itemId: 'nameCombo',
+                                   fieldLabel: 'Last Name',
+                                   name: 'lName',
+                                   valueField: 'lName',
+                                   queryMode: 'remote',
+                                   queryParam: 'lName',
+                                   store: searchStore,
+                                   emptyText: 'lastname',
+                                   matchFieldWidth: false,
+                                   tpl: '<tpl for="."><div class="x-boundlist-item">{lName}, {fName} {mName}</div></tpl>',
+                                   displayTpl: '<tpl for=".">{lName}, {fName} {mName}</tpl>',
+                                   listConfig: {
+                                       loadingText: 'Searching...',
+                                       emptyText: 'No matching teacher found.',
+                                       width: 280
+                                   }
+                              },
+                              {
+                                   xtype: 'label',
+                                   text: 'OR'
+                              },
+                              {
+                                   xtype: 'combo',
+                                   itemId: 'employeeNoCombo',
+                                   fieldLabel: 'Employee No',
+                                   name: 'employeeNo',
+                                   valueField: 'employeeNo',
+                                   queryMode: 'remote',
+                                   queryParam: 'employeeNo',
+                                   store: searchStore,
+                                   emptyText: 'employee no',
+                                   matchFieldWidth: false,
+                                   tpl: '<tpl for="."><div class="x-boundlist-item">{employeeNo} - {lName}, {fName} {mName}</div></tpl>',
+                                   displayTpl: '<tpl for=".">{employeeNo} - {lName}, {fName} {mName}</tpl>',
+                                   listConfig: {
+                                       loadingText: 'Searching...',
+                                       emptyText: 'No matching teacher found.',
+                                       width: 310
+                                   }
+                              },
+                              {
+                                   xtype: 'textarea',
+                                   name: 'reason',
+                                   fieldLabel: 'Reason',
+                                   maxLength: 60
+                              },
+                              {
+                                   xtype: 'displayfield',
+                                   itemId: 'errorMsg',
+                                   text: '',
+                                   hidden: true,
+                                   fieldStyle: {
+                                        color: 'red',
+                                        background: 'transparent'
+                                   }
+                              },
+                              {
+                                   xtype: 'button',
+                                   text: 'Send request',
+                                   handler: function(button) {
+                                        
+                                        button.up('form').down('#errorMsg').setHidden(true);
+                                        
+                                        var form = button.up('form');
+                                        var request = form.down('textarea').getValue();
+                                        var value1 = form.down('#nameCombo').getValue();
+                                        var adviser1 = form.down('#nameCombo').findRecord('lName', value1);
+                                        var value2 = form.down('#employeeNoCombo').getValue();
+                                        var adviser2 = form.down('#employeeNoCombo').findRecord('employeeNo', value2);
+                                        
+                                        console.log(adviser1);
+                                        console.log(adviser2);
+                                        
+                                        if (adviser1 && adviser2) {
+                                             if (adviser1.data.employeeNo != adviser2.data.employeeNo) {
+                                                  form.down('#errorMsg').setHidden(false);
+                                                  form.down('#errorMsg').setValue('<p font-color="red">Selected teachers dont match!</p>');
+                                             } else {
+                                                  me.createRequest(adviser1.data.id, request, window);
+                                             }
+                                        } else if (adviser1 && !adviser2) {
+                                             me.createRequest(adviser1.data.id, request, window);
+                                        } else if (!adviser1 && adviser2) {
+                                             me.createRequest(adviser2.data.id, request, window);
+                                        } else {
+                                             form.down('#errorMsg').setHidden(false);
+                                             form.down('#errorMsg').setValue('<p font-color="red">No teacher selected!</p>');
+                                        }
+                                   }
+                              }
+                         ]
+                    }
+               ]
+          });
+          
+          window.show();
+     },
+     
+     createRequest: function (teacherId, reason, window) {
+          Ext.Ajax.request({
+               url: document.location.href + 'ws/requests',
+               jsonData: {
+                    studentId: Stadtra.app.userSession.data.user.student.id,
+                    teacherId: teacherId,
+                    reason: reason
+               },
+               method: 'POST',
+               callback: function(options, success, reponse) {
+                    
+                    if (success) {
+                         Ext.Msg.alert('STADTRA', 'Request sent');
+                         window.close();
+                    } else {
+                         Ext.Msg.alert('STADTRA', 'Failed to sent request');
+                    }
+               }
+          });
+     }
  });

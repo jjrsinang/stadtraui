@@ -69,6 +69,7 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
                                    {
                                         xtype: 'button',
                                         text: 'View Attachment',
+                                        margin: '0 15 0 0',
                                         hidden: announcement.data.filename ? false : true,
                                         handler: function () {
                                              var url = document.location.href + 'ws/announcements/' + announcement.data.id
@@ -77,6 +78,30 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
                                    }
                               ]
                          });
+                         
+                         if (container.up('home-page') && Stadtra.app.userSession && Stadtra.app.userSession.data.user.role=='admin') {
+                              form.add({
+                                   xtype: 'button',
+                                   text: 'Delete',
+                                   handler: function () {
+                                        Ext.Ajax.request({
+                                             url: document.location.href + 'ws/announcements/' + announcement.data.id,
+                                             params: {
+                                                 id: announcement.data.id
+                                             },
+                                             method: 'DELETE',
+                                             callback: function(options, success, reponse) {
+                                                  
+                                                  if (success) {
+                                                       Ext.Msg.alert('STADTRA', 'Announcement deleted');
+                                                  } else {
+                                                       Ext.Msg.alert('STADTRA', 'Deletion failed - try again');
+                                                  }
+                                             }
+                                        });
+                                   }
+                              });
+                         }
                          
                          var cont = Ext.create('Ext.panel.Panel',{
                               layout : 'hbox',
