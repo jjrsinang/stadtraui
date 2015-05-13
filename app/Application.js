@@ -86,14 +86,14 @@ Ext.define('Stadtra.Application', {
 						console.log('case 4: someone logged in is legit');
 						// create viewport to "start application"
 						// will show home page
-						Ext.create('Stadtra.view.main.Main').getLayout().setActiveItem(1);
+						Ext.create('Stadtra.view.main.Main').add({xtype: 'home-page'});
 					}
 				});
 			} else {
 				console.log('case 5: no one is looged in');
 				// create viewport to "start application"
 				// will show login page
-				Ext.create('Stadtra.view.main.Main').getLayout().setActiveItem(0);
+				Ext.create('Stadtra.view.main.Main').add({xtype: 'main-container'});
 			}
 		}
     },

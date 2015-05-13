@@ -23,11 +23,6 @@ Ext.define('Stadtra.view.main.Main', {
     },
 
     items: [
-        {
-            xtype: 'main-container'
-        },
-        {
-            xtype: 'home-page'
-        }
+        
     ]
 });

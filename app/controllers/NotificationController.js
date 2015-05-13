@@ -4,8 +4,6 @@ Ext.define('Stadtra.controllers.NotificationController', {
      alias: 'controller.notificationcontroller',
      
      requires: [
-          'Ext.ux.WebSocket',
-          'Ext.ux.WebSocketManager',
           'Stadtra.model.RequestModel'
      ],
      
@@ -98,7 +96,7 @@ Ext.define('Stadtra.controllers.NotificationController', {
           
           var window = Ext.create('Ext.window.Window',{
                modal: true,
-               title: 'Notifications',
+               title: 'Notifications - coming soon!',
                height: 400,
                resizable: false,
                bodyPadding: 10,
