@@ -47,6 +47,17 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
                          slider.setValue(current_index);
 					};
                     
+                    if (store.count() == 0) {
+                         panel.add({
+                              xtype: 'panel',
+                              html: 'no announcements at this time',
+                              bodyPadding: 10
+                         });
+                         panel.down('slider').hide();
+                    } else {
+                         panel.down('slider').show();
+                    }
+                    
                     store.each(function(announcement){
                          
                          var form = Ext.create('Ext.form.Panel',{
@@ -90,12 +101,11 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
                                                  id: announcement.data.id
                                              },
                                              method: 'DELETE',
-                                             callback: function(options, success, reponse) {
-                                                  
-                                                  if (success) {
+                                             callback: function(options, success2, reponse) {
+                                                  if (success2) {
                                                        Ext.Msg.alert('STADTRA', 'Announcement deleted');
                                                   } else {
-                                                       Ext.Msg.alert('STADTRA', 'Deletion failed - try again');
+                                                       Ext.Msg.alert('STADTRA', 'Deletion failed');
                                                   }
                                              }
                                         });
@@ -108,7 +118,7 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
                               items : [
                                    {
                                         xtype: 'panel',
-                                        html: '<br><br><br><br><br><br><br><br><br><center><</center>',
+                                        html: '<br><br><br><br><br><br><br><br><br><center><font size="40" color="gray"><b><</b></font></center>',
                                         width: 40,
                                         height: '100%',
                                         listeners: {
@@ -122,7 +132,7 @@ Ext.define('Stadtra.controllers.AnnouncementController', {
                                    form,
                                    {
                                         xtype: 'panel',
-                                        html: '<br><br><br><br><br><br><br><br><br><center>></center>',
+                                        html: '<br><br><br><br><br><br><br><br><br><center><font size="40" color="gray"><b>></b></font></center>',
                                         width: 40,
                                         height: '100%',
                                         listeners: {

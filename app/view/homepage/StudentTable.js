@@ -15,6 +15,7 @@ Ext.define('Stadtra.view.homepage.StudentTable', {
 	
 	maxHeight: 450,
     width : 650,
+	frame: true,
     multiColumnSort: true,
 
     columns: [

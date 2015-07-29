@@ -11,7 +11,11 @@ Ext.define('Stadtra.view.login.Announcement', {
     },
 	
 	title: 'Announcements',
-
+	
+	style: {
+        background: '#F5F5F5'
+    },
+	
     items: [
     	{
     		xtype: 'panel',
@@ -19,7 +23,6 @@ Ext.define('Stadtra.view.login.Announcement', {
     		height: 550,
     		width: 600,
     		padding: 50,
-			html: 'no announcements at this time',
 			layout: 'card',
 			dockedItems: [{
 				xtype: 'toolbar',

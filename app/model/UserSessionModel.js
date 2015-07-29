@@ -1,7 +1,7 @@
 
 function convertTimestamp(value, record){
       if(!value)return '';
-      return Ext.Date.format(new Date(value), 'm/d/Y H:i A');
+      return Ext.Date.format(new Date(value), 'm/d/Y h:i A');
  };
  
 Ext.define('Stadtra.model.UserSessionModel',{

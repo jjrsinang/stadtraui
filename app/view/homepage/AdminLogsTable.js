@@ -1,6 +1,10 @@
-Ext.define('Stadtra.view.homepage.AdminTable', {
+Ext.define('Stadtra.view.homepage.AdminLogsTable', {
     extend: 'Ext.grid.Panel',
-    xtype: 'admin-table',
+    xtype: 'admin-logs-table',
+	
+	requires: [
+		'Stadtra.model.LogModel'
+	],
 	
 	maxHeight: 450,
     width : 570,
@@ -8,24 +12,17 @@ Ext.define('Stadtra.view.homepage.AdminTable', {
 	
     columns: [
         {
-            text: 'Name',
-            width: 170,
-            dataIndex: 'userName'
-        }, {
-            text: 'ID No',
-            width: 110,
-            dataIndex: 'loginId'
-        }, {
-            text: 'Duration',
-            width: 85,
-            dataIndex: 'durationInMinutes',
-            renderer: function (value) {
-                return value + ' min(s)';
-            }
-        }, {
-            text: 'Remote Address',
+            text: 'User',
             flex: 1,
-            dataIndex: 'remoteAddress'
+            dataIndex: 'user'
+        }, {
+            text: 'Operation',
+            flex: 1,
+            dataIndex: 'operation'
+        }, {
+            text: 'Time',
+            flex: 1,
+            dataIndex: 'time'
         }
     ],
 
@@ -33,12 +30,12 @@ Ext.define('Stadtra.view.homepage.AdminTable', {
         var me = this;
 
         me.store = Ext.create('Ext.data.Store',{
-            model: 'Stadtra.model.UserSessionModel',
-            pageSize: 1000,
+            model: 'Stadtra.model.LogModel',
+            pageSize: 10,
             proxy	: {
                 type	:	'rest',
                 enablePaging : true,
-                url: '/stadtra/ws/security/sessions',
+                url: '/stadtra/ws/security/logs',
                 reader : {
                     type			: 'json',
                     rootProperty	: 'data',
@@ -51,7 +48,7 @@ Ext.define('Stadtra.view.homepage.AdminTable', {
 		Ext.apply(me, {
 			bbar: {
                 xtype: 'pagingtoolbar',
-                pageSize: 1000,
+                pageSize: 100,
                 store: me.store,
                 displayInfo: true
             }

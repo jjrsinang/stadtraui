@@ -40,7 +40,7 @@ Ext.define('Stadtra.view.homepage.Profile', {
 	listeners: {
 		afterrender: function(panel) {
 			if (Stadtra.app.userSession) {
-				if (Stadtra.app.userSession.data.user.student) {
+				if (Stadtra.app.userSession.data.user.student && Stadtra.app.userSession.data.user.student.classification != 'Graduate') {
 					panel.down('form').add({ xtype: 'button', text: 'Change Adviser', itemId: 'changeAdviserButton'});
 				}
 			}

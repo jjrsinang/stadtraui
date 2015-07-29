@@ -15,6 +15,7 @@ Ext.define('Stadtra.view.homepage.AdviserTable', {
 	
 	maxHeight: 450,
     width : 750,
+	frame: true,
     multiColumnSort: true,
 	
 	dockedItems: [

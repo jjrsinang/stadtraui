@@ -6,6 +6,8 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 		'Stadtra.view.homepage.Profile',
 		'Stadtra.view.homepage.Students',
 		'Stadtra.view.homepage.Admin',
+		'Stadtra.view.homepage.Notification',
+		'Stadtra.view.homepage.Message',
 		'Stadtra.view.login.Announcement'
 	],
 
@@ -71,15 +73,22 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 	tabRotation: 0,
 	
 	items: [
-	{
-		xtype: 'announcement-container'
-	},{
-		xtype: 'profile'
-    }, {
-		xtype: 'teacher-panel'
-    }, {
-    	xtype: 'student-panel'
-    }],
+		{
+			xtype: 'announcement-container'
+		},
+		{
+			xtype: 'notification-container'
+		},
+		{
+			xtype: 'profile'
+		},
+		{
+			xtype: 'teacher-panel'
+		},
+		{
+			xtype: 'student-panel'
+		}
+	],
 	
 	listeners: {
 		afterrender: function(me) {
@@ -94,12 +103,6 @@ Ext.define('Stadtra.view.homepage.HomePage', {
 		
 		Ext.apply(me,{
 			tools: [
-				{ 
-					xtype: 'button',
-					text: '0',
-					itemId: 'notifButton',
-					width: 25
-				},			
 				{
 					xtype: 'label',
 					text: Stadtra.app.userSession ?

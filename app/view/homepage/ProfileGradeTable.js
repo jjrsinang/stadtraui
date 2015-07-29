@@ -9,7 +9,10 @@ Ext.define('Stadtra.view.homepage.ProfileGradeTable', {
 	title: 'Grades',
 	maxHeight: 450,
 	width : 700,
-	padding: 10,
+	margin: '10 0 10 0',
+	frame: true,
+	collapsible: true,
+	emptyText: 'no grades to display',
 	
     columns: [
 		{
@@ -23,7 +26,10 @@ Ext.define('Stadtra.view.homepage.ProfileGradeTable', {
 		{
 			text: 'Sem/Year Taken',
 			flex: 1,
-			dataIndex: 'semTaken'
+			dataIndex: 'semTaken',
+			renderer: function (value, meta, record) {
+				return record.data.semTaken + ' ' + record.data.year;
+			}
 		},
 		{
 			text: 'Units',

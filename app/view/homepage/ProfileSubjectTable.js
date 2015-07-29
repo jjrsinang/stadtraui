@@ -10,8 +10,11 @@ Ext.define('Stadtra.view.homepage.ProfileSubjectTable', {
 	title: 'Current Subjects',
 	maxHeight: 450,
 	width : 700,
-	padding: 10,
+	margin: '10 0 10 0',
 	teacherId: null,
+	frame: true,
+	collapsible: true,
+	emptyText: 'no subjects to display',
 	
     columns: [
 		{

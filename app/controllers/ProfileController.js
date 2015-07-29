@@ -6,7 +6,8 @@ Ext.define('Stadtra.controllers.ProfileController', {
      requires: [
           'Stadtra.view.homepage.ProfileGradeTable',
           'Stadtra.view.homepage.ProfileSubjectTable',
-          'Stadtra.view.homepage.Profile'
+          'Stadtra.view.homepage.Profile',
+          'Stadtra.view.homepage.NotificationTable'
      ],
      
      init: function() {
@@ -16,6 +17,9 @@ Ext.define('Stadtra.controllers.ProfileController', {
                     activate: this.onActivate
              },
              'profile #changeAdviserButton': {
+                    click: this.onClickChangeAdviser
+             },
+             'notification-table #addRequestButton': {
                     click: this.onClickChangeAdviser
              }
          });
@@ -74,7 +78,9 @@ Ext.define('Stadtra.controllers.ProfileController', {
                          itemId: 'adviserGrid',
                          maxHeight: 450,
                          width : 700,
-                         padding: 10,
+                         frame: true,
+                         collapsible: true,
+                         margin: '10 0 10 0',
                          emptyText: 'there are no advisers',
                          title: 'Advisers',
                          viewConfig: {
@@ -190,8 +196,8 @@ Ext.define('Stadtra.controllers.ProfileController', {
                                    store: searchStore,
                                    emptyText: 'lastname',
                                    matchFieldWidth: false,
-                                   tpl: '<tpl for="."><div class="x-boundlist-item">{lName}, {fName} {mName}</div></tpl>',
-                                   displayTpl: '<tpl for=".">{lName}, {fName} {mName}</tpl>',
+                                   tpl: '<tpl for="."><div class="x-boundlist-item"><b>{lName}</b>, {fName} {mName}</div></tpl>',
+                                   displayTpl: '<tpl for=".">{lName}</tpl>',
                                    listConfig: {
                                        loadingText: 'Searching...',
                                        emptyText: 'No matching teacher found.',
@@ -213,8 +219,8 @@ Ext.define('Stadtra.controllers.ProfileController', {
                                    store: searchStore,
                                    emptyText: 'employee no',
                                    matchFieldWidth: false,
-                                   tpl: '<tpl for="."><div class="x-boundlist-item">{employeeNo} - {lName}, {fName} {mName}</div></tpl>',
-                                   displayTpl: '<tpl for=".">{employeeNo} - {lName}, {fName} {mName}</tpl>',
+                                   tpl: '<tpl for="."><div class="x-boundlist-item"><b>{employeeNo}</b> - {lName}, {fName} {mName}</div></tpl>',
+                                   displayTpl: '<tpl for=".">{employeeNo}</tpl>',
                                    listConfig: {
                                        loadingText: 'Searching...',
                                        emptyText: 'No matching teacher found.',
@@ -280,6 +286,7 @@ Ext.define('Stadtra.controllers.ProfileController', {
      },
      
      createRequest: function (teacherId, reason, window) {
+          var box = Ext.Msg.wait('STADTRA', 'Sending request...');
           Ext.Ajax.request({
                url: document.location.href + 'ws/requests',
                jsonData: {
@@ -289,12 +296,12 @@ Ext.define('Stadtra.controllers.ProfileController', {
                },
                method: 'POST',
                callback: function(options, success, reponse) {
-                    
+                    box.close();
                     if (success) {
                          Ext.Msg.alert('STADTRA', 'Request sent');
                          window.close();
                     } else {
-                         Ext.Msg.alert('STADTRA', 'Failed to sent request');
+                         Ext.Msg.alert('STADTRA', 'Failed to send request');
                     }
                }
           });

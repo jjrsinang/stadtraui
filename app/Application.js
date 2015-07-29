@@ -44,6 +44,8 @@ Ext.define('Stadtra.Application', {
 		Ext.override(Ext.data.proxy.Ajax, { timeout: 90000 });
 		Ext.override(Ext.form.action.Action, { timeout: 90 });
 		
+		Ext.override(Ext.grid.View, { enableTextSelection: true });
+		
 		this.loadUserSession();
 		
 		// get reference to login cotroller to gain access to login/logout functions
